@@ -1,14 +1,9 @@
-My fork of Mallet, MAchine Learning for LanguagE Toolkit
+My fork of [Mallet](http://mallet.cs.umass.edu/index.php), MAchine Learning for LanguagE Toolkit in java
 
-Updated to last version 2.0.7, 2011/9/22
-
-See:
-
-* [Mallet](http://mallet.cs.umass.edu/index.php)
-* [Official mercurial repo](http://hg-iesl.cs.umass.edu/hg/mallet)
+Updated to last version 2.0.7, 2011-9-22
+[Original mercurial repository's history](http://hg-iesl.cs.umass.edu/hg/mallet) kept using [hg-git](http://hg-git.github.com/)
 
 
 # My changes
 
-Currently nothing
-
+Currently nothing of interest
