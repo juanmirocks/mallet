@@ -308,6 +308,28 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
 	{
 		return add (data, target, name, source, 1.0);
 	}
+	
+	/**
+	 * Appends the list of instances of another InstanceList without passing
+	 * through this InstanceList's pipe.
+	 * 
+	 * The alphabets of the given InstanceList must match the alphabets of this InstanceList.
+	 * 
+	 * @param instanceList
+	 * @return <code>true</code>
+	 */
+	public boolean add(InstanceList instanceList) {
+		/** 
+		 * In doc I say I return true in compliance that @see {@link InstanceList#add(Instance)} returns
+		 * always true. Yet that is not necessarily true; its add could return false.
+		 */
+		for (Instance i: instanceList) {
+			if (!add(i))
+				return false;
+		}
+		return true;
+	}
+	
 
 	/** Appends the instance to this list without passing the instance through
 	 * the InstanceList's pipe.  
