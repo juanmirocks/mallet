@@ -12,7 +12,7 @@ Updated to last version: **2.0.7**, 2011-9-22
 * Pipes to get features from single tokens through transformations.
   See package [cc.mallet.pipe.tsf.transform](https://github.com/jmcejuela/mallet/tree/master/src/cc/mallet/pipe/tsf/transform)
   
-  For example (TokenTransform) to convert to lower case or
+    For example (TokenTransform) to convert to lower case or
   to convert to different morphologies, like U27k9 -> A11a1
   (cap num num low num)
   
