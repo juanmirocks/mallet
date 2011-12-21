@@ -22,6 +22,13 @@ import java.util.regex.Pattern;
 import cc.mallet.pipe.*;
 import cc.mallet.types.*;
 
+
+/**
+ * Produce feature of token's text if this matches the given regular expression.
+ * 
+ * If the given prefix is non-null, the prefix is appended to the token's text.
+ * 
+ */
 public class TokenText extends Pipe implements Serializable
 {
 	String prefix;
