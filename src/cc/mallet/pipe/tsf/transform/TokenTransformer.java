@@ -3,13 +3,17 @@ package cc.mallet.pipe.tsf.transform;
 public interface TokenTransformer {
 
 	/**
-	 * Transform the given token to a defined String representation.
+	 * Transform given token to arbitrary String representation.
 	 * 
-	 * The token is considered rejected by the transformer when this
-	 * returns null. For example, a transformer to convert the given
-	 * token to lower case could reject punctuation marks or numbers.
+	 * Seen as a binary feature generator, the TokenTransformer
+	 * _rejects_ a token by returning null, and _accepts_ it
+	 * by returning a non-null String object.
 	 * 
-	 * @param token token to transform as String, i.e., its text 
+	 * The final String representation is arbitrary and defined
+	 * by the implementing TokenTransformer.
+	 * See {@link CommonNerTokenTransformers} for examples.
+	 * 
+	 * @param token token as String, its text, to transform
 	 * @return String representation of token after transformation
 	 * 	or null if token is rejected. 
 	 */
