@@ -69,8 +69,8 @@ public class CommonNerTokenTransformers {
 			return in;
 		StringBuilder sb = new StringBuilder();
 		//Simple method to make sure we don't stupidly discard the first character
-		//Still, he given input strings typically should not contain whitespace characters
-		//I find this simpler than using charAt or getChars by splitting the first character
+		//Still, given input strings typically should not contain whitespace characters
+		//I find this simpler than splitting the first char and then using charAt or getChars 
 		char previous = (in.charAt(0) == '\n') ? ' ' : '\n';
 		for (char c : in.toCharArray()) {
 			if (c != previous) {
@@ -125,7 +125,7 @@ public class CommonNerTokenTransformers {
 	/**
 	 * Return TokenTransformer that transforms tokens by grouping contiguous
 	 * numbers as '*' and lowering the case to the rest of characters.
-	 * If the token doesn't contain any number this token is rejected.
+	 * If the token doesn't contain any number the token is rejected.
 	 * 
 	 * Examples:
 	 * <ul>
