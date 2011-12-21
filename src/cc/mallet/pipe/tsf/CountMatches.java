@@ -24,6 +24,19 @@ import java.util.regex.Matcher;
 import cc.mallet.pipe.*;
 import cc.mallet.types.*;
 
+/**
+ * Produces feature with the count (if non-zero) that the given regex is found in an instance' token.
+ * 
+ * The user can specify the count type, namely:
+ * <ul>
+ * <li>{@link #INTEGER_COUNT} currently no effect</li>
+ * <li>{@link #BINARY_COUNT} found (1) or nothing</li>
+ * <li>{@link #NORMALIZED_COUNT} if found, count / token.length()</li>
+ * </ul>
+ * 
+ * If the feature is activated, regex found at least one, the count is written as double.
+ * 
+ */
 public class CountMatches extends Pipe
 {
 	public static final int INTEGER_COUNT = 0;
