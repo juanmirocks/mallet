@@ -34,7 +34,7 @@ import cc.mallet.types.*;
  * <li>{@link #NORMALIZED_COUNT} if found, count / token.length()</li>
  * </ul>
  * 
- * If the feature is activated, regex found at least one, the count is written as double.
+ * If the feature is activated, regex found at least once, the count is written as double.
  * 
  */
 public class CountMatches extends Pipe
