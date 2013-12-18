@@ -148,12 +148,12 @@ public class GenericAcrfData2TokenSequence extends Pipe {
       StringSpan span = new StringSpan (buf, start, end);
 
       while (j < maxFeatureIdx) {
-        span.setFeatureValue (toks[j].intern (), 1.0);
+        span.setFeatureValue (toks[j], 1.0);
         j++;
       }
 
       if (includeTokenText) {
-        span.setFeatureValue ((textFeaturePrefix+text).intern(), 1.0);
+        span.setFeatureValue (textFeaturePrefix + text, 1.0);
       }
 
       if (labelsAtEnd) {
