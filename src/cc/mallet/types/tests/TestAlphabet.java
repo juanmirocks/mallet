@@ -44,7 +44,7 @@ public class TestAlphabet extends TestCase {
     dict.lookupIndex ("TEST2");
     dict.lookupIndex ("TEST3");
     Alphabet dict2 = (Alphabet) TestSerializable.cloneViaSerialization (dict);
-    assertTrue (dict == dict2);
+    assertEquals (dict, dict2);
   }
 
   public static Test suite ()
