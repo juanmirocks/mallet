@@ -81,10 +81,20 @@
         <version>2.14.1</version>
         <configuration>
           <skip>false</skip>
+          <argLine>-Xms1024m -Xmx1024m</argLine>
           <disableXmlReport>false</disableXmlReport>
           <excludes>
             <exclude>**/*$*</exclude><!-- inner classes -->
             <exclude>**/examples/Test*</exclude><!-- examples named like tests -->
+
+            <!-- TestCases with no test methods remaining: -->
+            <exclude>cc/mallet/extract/test/TestDocumentExtraction.java</exclude>
+            <exclude>cc/mallet/grmm/test/TestGenericAcrfData2TokenSequence.java</exclude>
+            <exclude>cc/mallet/grmm/test/TestNormalFactor.java</exclude>
+            <exclude>cc/mallet/pipe/tests/TestSpacePipe.java</exclude>
+            <exclude>cc/mallet/types/tests/TestLabelAlphabet.java</exclude>
+            <exclude>cc/mallet/types/tests/TestPagedInstanceList.java</exclude>
+            <exclude>cc/mallet/util/tests/TestRandom.java</exclude>
           </excludes>
         </configuration>
       </plugin>
