@@ -42,6 +42,96 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>src</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/resources/*.*</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*.class</include>
+            <include>**/resources/*.*</include>
+            <include>**/*.properties</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.14.1</version>
+        <configuration>
+          <skip>false</skip>
+          <disableXmlReport>false</disableXmlReport>
+          <excludes>
+            <exclude>**/*$*</exclude><!-- inner classes -->
+            <exclude>**/examples/Test*</exclude><!-- examples named like tests -->
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.2</version>
+        <executions>
+          <execution>
+            <id>enforce-ban-version-downgrades</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireUpperBoundDeps/>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>enforce-ban-duplicate-classes</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <banDuplicateClasses>
+                  <ignoreClasses>
+                    <ignoreClass>org/aspectj/*</ignoreClass>
+                    <ignoreClass>org/hamcrest/*</ignoreClass>
+                  </ignoreClasses>
+                  <findAllDuplicates>true</findAllDuplicates>
+                </banDuplicateClasses>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+            <dependency>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>extra-enforcer-rules</artifactId>
+              <version>1.0-alpha-3</version>
+            </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
   </build>
   <dependencies>
     <dependency>
