@@ -2,3 +2,7 @@
 /.settings
 .classpath
 .project
+class
+dist
+*.obj
+*.dot

@@ -53,6 +53,11 @@ public class TestRainbowStyle extends TestCase
 
 	protected void setUp ()
 	{
+	  /* XXX (Rick Warren 2013-06-06): Added missing setup line to make 
+	   * testPlusEqualsFromSaved() pass.
+	   */
+	  new File("foo/bar").mkdirs();
+	  // END modification 3013-06-06
 	}
 
 	public static void main (String[] args)
