@@ -14,8 +14,7 @@
 
 package cc.mallet.types;
 
-import cc.mallet.types.Label;
-import cc.mallet.types.RankedFeatureVector;
+import cc.mallet.util.ObjectUtils;
 
 public class LabelVector extends RankedFeatureVector implements Labeling
 {
@@ -81,7 +80,7 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 
 	public double value (Label label)
 	{
-		assert (label.dictionary  == this.dictionary);
+		assert ObjectUtils.equal(label.dictionary, this.dictionary);
 		return values[this.location (label.toString ())];
 	}
 

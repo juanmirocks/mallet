@@ -10,8 +10,11 @@ package cc.mallet.classify;
 
 import java.io.Serializable;
 
-import cc.mallet.pipe.*;
-import cc.mallet.types.*;
+import cc.mallet.pipe.Pipe;
+import cc.mallet.types.FeatureVector;
+import cc.mallet.types.Instance;
+import cc.mallet.types.LabelVector;
+import cc.mallet.util.ObjectUtils;
 
 
 /**
@@ -85,7 +88,7 @@ public class AdaBoostM2 extends Classifier implements Serializable
     				+ numWeakClassifiersToUse);
 
     	FeatureVector fv = (FeatureVector) inst.getData();
-    	assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+    	assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
     	
     	int numClasses = getLabelAlphabet().size();
     	double[] scores = new double[numClasses];

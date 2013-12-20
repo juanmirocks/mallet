@@ -6,6 +6,9 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.pipe.tests;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import cc.mallet.fst.SimpleTagger;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.PipeUtils;
@@ -13,7 +16,6 @@ import cc.mallet.pipe.SerialPipes;
 import cc.mallet.pipe.SimpleTaggerSentence2TokenSequence;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
-import junit.framework.*;
 
 /**
  * Created: Aug 28, 2005
@@ -66,7 +68,7 @@ public class TestPipeUtils extends TestCase {
     Alphabet dict = serial.getDataAlphabet ();
 
     assertEquals (3, dict.size ());
-    assertTrue (dict == p2.getDataAlphabet ());
+    assertEquals (p2.getDataAlphabet (), dict);
   }
 
   public void testConcatenateNullPipes ()
@@ -90,7 +92,7 @@ public class TestPipeUtils extends TestCase {
     // force resolving data alphabet
     Alphabet dict2 = p2.getDataAlphabet ();
 
-    assertTrue (dict1 != dict2);
+    assertFalse (dict1.equals(dict2));
 
     try {
       PipeUtils.concatenatePipes (p1, p2);

@@ -20,11 +20,14 @@
 
 package cc.mallet.types;
 
-import java.util.logging.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Logger;
 
 import cc.mallet.classify.Classification;
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 
 public class ExpGain extends RankedFeatureVector
 {
@@ -70,7 +73,7 @@ public class ExpGain extends RankedFeatureVector
 
 		// Calculate p~[f] and q[f]
 		for (int i = 0; i < numInstances; i++) {
-			assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+			assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 			Instance inst = ilist.get(i);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();
@@ -156,7 +159,7 @@ public class ExpGain extends RankedFeatureVector
 					}
 			}
 			for (int i = 0; i < ilist.size(); i++) {
-				assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+				assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 				Instance inst = ilist.get(i);
 				Labeling labeling = inst.getLabeling ();
 				FeatureVector fv = (FeatureVector) inst.getData ();
@@ -246,7 +249,7 @@ public class ExpGain extends RankedFeatureVector
 		// Note that we are using a gaussian prior, so we don't multiply by (1/numInstances)
 		double[][] qeag = new double[numClasses][numFeatures];
 		for (int i = 0; i < ilist.size(); i++) {
-			assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+			assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 			Instance inst = ilist.get(i);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();
@@ -343,7 +346,7 @@ public class ExpGain extends RankedFeatureVector
 		
 		public RankedFeatureVector newRankedFeatureVector (InstanceList ilist)
 		{
-			assert (ilist.getTargetAlphabet() == classifications[0].getAlphabet());
+			assert ObjectUtils.equal(ilist.getTargetAlphabet(), classifications[0].getAlphabet());
 			return new ExpGain (ilist, classifications, gaussianPriorVariance);
 		}
 

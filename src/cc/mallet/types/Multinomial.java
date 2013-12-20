@@ -12,14 +12,12 @@
 package cc.mallet.types;
 
 
-import java.io.Serializable;
-import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureSequence;
-import cc.mallet.types.FeatureVector;
+import cc.mallet.util.ObjectUtils;
 import cc.mallet.util.Randoms;
 
 /**
@@ -365,8 +363,9 @@ public class Multinomial extends FeatureVector
 
 		public void increment (FeatureSequence fs, double scale)
 		{
-			if (fs.getAlphabet() != dictionary)
+			if (!ObjectUtils.equal(fs.getAlphabet(), dictionary)) {
 				throw new IllegalArgumentException ("Vocabularies don't match.");
+			}
 			for (int fsi = 0; fsi < fs.size(); fsi++)
 				increment (fs.getIndexAtPosition(fsi), scale);
 		}
@@ -378,8 +377,9 @@ public class Multinomial extends FeatureVector
 
 		public void increment (FeatureVector fv, double scale)
 		{
-			if (fv.getAlphabet() != dictionary)
+			if (!ObjectUtils.equal(fv.getAlphabet(), dictionary)) {
 				throw new IllegalArgumentException ("Vocabularies don't match.");
+			}
 			for (int fvi = 0; fvi < fv.numLocations(); fvi++)
 				// Originally, the value of the feature was not being taken into account here,
 				// so words were only counted once per document! - gdruck 

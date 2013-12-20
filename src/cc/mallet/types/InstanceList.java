@@ -17,7 +17,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collection;
@@ -34,8 +33,8 @@ import cc.mallet.pipe.SerialPipes;
 import cc.mallet.pipe.Target2Label;
 import cc.mallet.pipe.TokenSequence2FeatureSequence;
 import cc.mallet.pipe.iterator.RandomTokenSequenceIterator;
-
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 import cc.mallet.util.Randoms;
 
 /**
@@ -757,8 +756,9 @@ public InstanceList[] splitInOrder (double[] proportions) {
 	{
 		if (selectedFeatures != null
 				&& selectedFeatures.getAlphabet() != null  // xxx We allow a null vocabulary here?  See CRF3.java
-				&& selectedFeatures.getAlphabet() != getDataAlphabet())
+				&& !selectedFeatures.getAlphabet().equals(getDataAlphabet())) {
 			throw new IllegalArgumentException ("Vocabularies do not match");
+		}
 		featureSelection = selectedFeatures;
 	}
 
@@ -771,8 +771,9 @@ public InstanceList[] splitInOrder (double[] proportions) {
 	{
 		if (selectedFeatures != null) {
 			for (int i = 0; i < selectedFeatures.length; i++)
-				if (selectedFeatures[i].getAlphabet() != getDataAlphabet())
+				if (!ObjectUtils.equal(selectedFeatures[i].getAlphabet(), getDataAlphabet())) {
 					throw new IllegalArgumentException ("Vocabularies do not match");
+				}
 		}
 		perLabelFeatureSelection = selectedFeatures;
 	}
@@ -965,7 +966,7 @@ public InstanceList[] splitInOrder (double[] proportions) {
 		}
 		assert (pipe == null
 				|| pipe.getDataAlphabet () == null
-				|| pipe.getDataAlphabet () == dataAlphabet);
+				|| ObjectUtils.equal(pipe.getDataAlphabet (), dataAlphabet));
 		return dataAlphabet;
 	}
 	
@@ -978,7 +979,7 @@ public InstanceList[] splitInOrder (double[] proportions) {
 		}
 		assert (pipe == null
 				|| pipe.getTargetAlphabet () == null
-				|| pipe.getTargetAlphabet () == targetAlphabet);
+				|| ObjectUtils.equal(pipe.getTargetAlphabet (), targetAlphabet));
 		return targetAlphabet;
 	}
 	

@@ -3,6 +3,7 @@ package cc.mallet.classify;
 import cc.mallet.types.Instance;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;
+import cc.mallet.util.ObjectUtils;
 
 /* Copyright (C) 2005 Univ. of Massachusetts Amherst, Computer Science Dept.
    This file is part of "MALLET" (MAchine Learning for LanguagE Toolkit).
@@ -12,7 +13,7 @@ import cc.mallet.types.MatrixOps;
    information, see the file `LICENSE' included with this distribution. */
 
 /**
- * Classifer for an ensemble of classifers, combined with learned weights.
+ * Classifier for an ensemble of classifiers, combined with learned weights.
  * The procedure is to obtain the score from each classifier (typically p(y|x)),
  * perform the weighted sum of these scores, then exponentiate the summed
  * score for each class, and re-normalize the resulting per-class scores.
@@ -29,8 +30,9 @@ public class ClassifierEnsemble extends Classifier
   {
     this.ensemble = new Classifier[classifiers.length];
     for (int i = 0; i < classifiers.length; i++) {
-      if (i > 0 && ensemble[i-1].getLabelAlphabet() != classifiers[i].getLabelAlphabet())
+      if (i > 0 && !ObjectUtils.equal(ensemble[i-1].getLabelAlphabet(), classifiers[i].getLabelAlphabet())) {
         throw new IllegalStateException("LabelAlphabet's do not match.");
+      }
       ensemble[i] = classifiers[i];
     }
     System.arraycopy (classifiers, 0, ensemble, 0, classifiers.length);

@@ -25,10 +25,11 @@
 
 package cc.mallet.types;
 
-import java.util.logging.*;
+import java.util.logging.Logger;
 
 import cc.mallet.classify.Classification;
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 
 public class KLGain extends RankedFeatureVector
 {
@@ -78,7 +79,7 @@ public class KLGain extends RankedFeatureVector
 		}
 
 		for (int i = 0; i < numInstances; i++) {
-			assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+			assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 			Instance inst = ilist.get(i);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();
@@ -129,7 +130,7 @@ public class KLGain extends RankedFeatureVector
 		double[][] qeag = new double[numClasses][numFeatures];
 		modelLabelWeightSum = 0;
 		for (int i = 0; i < ilist.size(); i++) {
-			assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+			assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 			Instance inst = ilist.get(i);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();

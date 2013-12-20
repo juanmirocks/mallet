@@ -25,6 +25,8 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import cc.mallet.util.ObjectUtils;
+
 public class RankedFeatureVector extends FeatureVector
 {
 	int[] rankOrder;
@@ -177,7 +179,7 @@ public class RankedFeatureVector extends FeatureVector
 		if (fs == null) {
       return getMaxValuedIndex();
     }
-		assert (fs.getAlphabet() == dictionary);
+		assert ObjectUtils.equal(fs.getAlphabet(), dictionary);
 		// xxx Make this more efficient!  I'm pretty sure that Java BitSet's can do this more efficiently
 		int i = 0;
 		while (!fs.contains(rankOrder[i])) {

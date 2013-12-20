@@ -16,10 +16,8 @@ package cc.mallet.classify;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 
 import cc.mallet.optimize.ConjugateGradient;
@@ -27,25 +25,18 @@ import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.Optimizer;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.ExpGain;
-import cc.mallet.types.FeatureInducer;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.FeatureVectorSequence;
-import cc.mallet.types.GradientGain;
-import cc.mallet.types.InfoGain;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labels;
 import cc.mallet.types.MatrixOps;
-import cc.mallet.types.RankedFeatureVector;
-import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
-import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 
 
 /**
@@ -382,7 +373,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 				}
 				FeatureVector fv = (FeatureVector)fvs.get(positiveIndex);
 				Alphabet fdict = fv.getAlphabet();
-				assert (fv.getAlphabet() == fd);
+				assert ObjectUtils.equal(fdict, fd);
 
 				// xxx ensure dimensionality of constraints correct
 				MatrixOps.rowPlusEquals (constraints, numFeatures, 0, fv, instanceWeight);

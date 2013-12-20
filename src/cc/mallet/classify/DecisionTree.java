@@ -24,6 +24,7 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Labeling;
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 
 /**
    Decision Tree classifier.
@@ -61,7 +62,7 @@ public class DecisionTree extends Classifier implements Serializable //implement
 	public Classification classify (Instance instance)
 	{
 		FeatureVector fv = (FeatureVector) instance.getData ();
-		assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+		assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
 		
 		Node leaf = getLeaf (root, fv);
 		return new Classification (instance, this, leaf.labeling);

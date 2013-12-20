@@ -18,13 +18,13 @@ import java.io.Serializable;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;
+import cc.mallet.util.ObjectUtils;
 
 /**
  * Maximum Entropy classifier.
@@ -95,8 +95,7 @@ public class MCMaxEnt extends Classifier implements Serializable
         // Make sure the feature vector's feature dictionary matches
         // what we are expecting from our data pipe (and thus our notion
         // of feature probabilities.
-        assert (fv.getAlphabet ()
-                == this.instancePipe.getDataAlphabet ());
+        assert ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet());
 
         // Include the feature weights according to each label
         for (int li = 0; li < numLabels; li++) {
@@ -118,7 +117,7 @@ public class MCMaxEnt extends Classifier implements Serializable
         // Make sure the feature vector's feature dictionary matches
         // what we are expecting from our data pipe (and thus our notion
         // of feature probabilities.
-        assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+        assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
 			  //  arrayOutOfBounds if pipe has grown since training 
 			  //        int numFeatures = getAlphabet().size() + 1;
         int numFeatures = this.defaultFeatureIndex + 1;

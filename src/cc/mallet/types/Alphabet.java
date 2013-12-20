@@ -14,11 +14,16 @@
 
 package cc.mallet.types;
 
-import java.util.ArrayList;
-import java.io.*;
-import java.util.Iterator;
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
 import java.rmi.dgc.VMID;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *  A mapping between integers and objects where the mapping in each
@@ -40,19 +45,17 @@ import java.rmi.dgc.VMID;
  */
 public class Alphabet implements Serializable
 {
-	gnu.trove.TObjectIntHashMap map;
-	ArrayList entries;
-	boolean growthStopped = false;
-	Class entryClass = null;
-	VMID instanceId = new VMID();  //used in readResolve to identify persitent instances
+	private gnu.trove.TObjectIntHashMap map;
+	private ArrayList entries;
+	private boolean growthStopped = false;
+	private Class entryClass = null;
+	private VMID instanceId = new VMID();
 
 	public Alphabet (int capacity, Class entryClass)
 	{
 		this.map = new gnu.trove.TObjectIntHashMap (capacity);
 		this.entries = new ArrayList (capacity);
 		this.entryClass = entryClass;
-		// someone could try to deserialize us into this image (e.g., by RMI).  Handle this.
-		deserializedEntries.put (instanceId, this);
 	}
 
 	public Alphabet (Class entryClass)
@@ -280,26 +283,56 @@ public class Alphabet implements Serializable
 		}
 	}
 
-	private transient static HashMap deserializedEntries = new HashMap();
-	/**
-	 * This gets called after readObject; it lets the object decide whether
-	 * to return itself or return a previously read in version.
-	 * We use a hashMap of instanceIds to determine if we have already read
-	 * in this object.
-	 * @return
-	 * @throws ObjectStreamException
-	 */
+    /* This class used to preserve object identity across serialization. It no 
+     * longer does that because of a memory leak. Therefore, in order to 
+     * ensure that an object remains equal to "itself" after being 
+     * deserialized, we need to override equals() and hashCode().
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.entries.hashCode();
+        result = prime * result + this.entryClass.hashCode();
+        result = prime * result + (this.growthStopped ? 1231 : 1237);
+        result = prime * result + this.instanceId.hashCode();
+        result = prime * result + this.map.hashCode();
+        return result;
+    }
 
-	public Object readResolve() throws ObjectStreamException {
-		Object previous = deserializedEntries.get(instanceId);
-		if (previous != null){
-			//System.out.println(" ***Alphabet ReadResolve:Resolving to previous instance. instance id= " + instanceId);
-			return previous;
-		}
-		if (instanceId != null){
-			deserializedEntries.put(instanceId, this);
-		}
-		//System.out.println(" *** Alphabet ReadResolve: new instance. instance id= " + instanceId);
-		return this;
-	}
+    /* This class used to preserve object identity across serialization. It no 
+     * longer does that because of a memory leak. Therefore, in order to 
+     * ensure that an object remains equal to "itself" after being 
+     * deserialized, we need to override equals() and hashCode().
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Alphabet other = (Alphabet) obj;
+        if (!this.entries.equals(other.entries)) {
+            return false;
+        }
+        if (!this.entryClass.equals(other.entryClass)) {
+            return false;
+        }
+        if (this.growthStopped != other.growthStopped) {
+            return false;
+        }
+        if (!this.instanceId.equals(other.instanceId)) {
+            return false;
+        }
+        if (!this.map.equals(other.map)) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -6,8 +6,6 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.pipe;
 
-import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.SerialPipes;
 import cc.mallet.types.Alphabet;
 
 /**
@@ -38,7 +36,7 @@ public class PipeUtils {
   {
     if (p1.dataAlphabet == null) return p2.dataAlphabet;
     if (p2.dataAlphabet == null) return p1.dataAlphabet;
-    if (p1.dataAlphabet == p2.dataAlphabet) return p2.dataAlphabet;
+    if (p1.dataAlphabet.equals(p2.dataAlphabet)) return p2.dataAlphabet;
     throw new IllegalArgumentException ("Attempt to concat pipes with incompatible data dicts.");
   }
 
@@ -46,7 +44,7 @@ public class PipeUtils {
   {
     if (p1.targetAlphabet == null) return p2.targetAlphabet;
     if (p2.targetAlphabet == null) return p1.targetAlphabet;
-    if (p1.targetAlphabet == p2.targetAlphabet) return p2.targetAlphabet;
+    if (p1.targetAlphabet.equals(p2.targetAlphabet)) return p2.targetAlphabet;
     throw new IllegalArgumentException ("Attempt to concat pipes with incompatible target dicts.");
   }
 

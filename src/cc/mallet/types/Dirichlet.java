@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import cc.mallet.types.Multinomial;
-import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 import cc.mallet.util.Randoms;
 
 /** 
@@ -1563,10 +1562,8 @@ Bernoulli numbers. */
 		{
 			this.multinomials = new ArrayList<Multinomial>(multinomialsTraining);
 			for (int i = 1; i < multinomials.size(); i++)
-				if (((Multinomial)multinomials.get(i-1)).size()
-						!= ((Multinomial)multinomials.get(i)).size()
-						|| ((Multinomial)multinomials.get(i-1)).getAlphabet()
-						!= ((Multinomial)multinomials.get(i)).getAlphabet())
+				if (((Multinomial)multinomials.get(i-1)).size() != ((Multinomial)multinomials.get(i)).size()
+						|| !ObjectUtils.equal(((Multinomial)multinomials.get(i-1)).getAlphabet(), ((Multinomial)multinomials.get(i)).getAlphabet()))
 					throw new IllegalArgumentException
 					("All multinomials must have same size and Alphabet.");
 		}

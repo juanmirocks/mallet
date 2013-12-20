@@ -1,6 +1,5 @@
 package cc.mallet.classify;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -17,7 +16,7 @@ import cc.mallet.types.Labeling;
 import cc.mallet.types.MatrixOps;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
-import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 
 public class MaxEntOptimizableByLabelDistribution implements Optimizable.ByGradientValue  //, Serializable TODO needs to be done?
 {
@@ -102,7 +101,7 @@ public class MaxEntOptimizableByLabelDistribution implements Optimizable.ByGradi
 			//logger.fine ("Instance "+ii+" labeling="+labeling);
 			FeatureVector fv = (FeatureVector) inst.getData ();
 			Alphabet fdict = fv.getAlphabet();
-			assert (fv.getAlphabet() == fd);
+			assert ObjectUtils.equal(fdict, fd);
 
 			// Here is the difference between this code and the single label 
 			//  version: rather than only picking out the "best" index, 

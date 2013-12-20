@@ -16,9 +16,12 @@
 
 package cc.mallet.types;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import cc.mallet.classify.Classification;
+import cc.mallet.util.ObjectUtils;
 
 public class GradientGain extends RankedFeatureVector
 {
@@ -41,7 +44,7 @@ public class GradientGain extends RankedFeatureVector
 		int fli; // feature location index
 		// Populate targetFeatureCount, et al
 		for (int i = 0; i < ilist.size(); i++) {
-			assert (classifications[i].getLabelAlphabet() == ilist.getTargetAlphabet());
+			assert ObjectUtils.equal(classifications[i].getLabelAlphabet(), ilist.getTargetAlphabet());
 			Instance inst = ilist.get(i);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();

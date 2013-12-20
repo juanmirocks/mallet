@@ -14,16 +14,17 @@
 
 package cc.mallet.types;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.logging.*;
-import java.io.*;
+import java.util.logging.Logger;
 
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureSequence;
-import cc.mallet.types.Vector;
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 import cc.mallet.util.PropertyList;
 
 /**
@@ -251,7 +252,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
    * (presumably more compact, dense) Alphabet. */
   public static FeatureVector newFeatureVector (FeatureVector fv, Alphabet newVocab, FeatureSelection fs)
   {
-    assert (fs.getAlphabet() == fv.dictionary);
+    assert ObjectUtils.equal(fs.getAlphabet(), fv.dictionary);
     if (fv.indices == null) {
       throw new UnsupportedOperationException("Not yet implemented for dense feature vectors.");
     }

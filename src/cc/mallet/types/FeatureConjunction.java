@@ -14,14 +14,17 @@
 
 package cc.mallet.types;
 
-import java.util.logging.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.*;
-import java.io.*;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
-import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
+import cc.mallet.util.ObjectUtils;
 
 public class FeatureConjunction implements Serializable
 {
@@ -269,8 +272,9 @@ public class FeatureConjunction implements Serializable
 	
 	public boolean satisfiedBy (FeatureVector fv)
 	{
-		if (fv.getAlphabet() != dictionary)
+		if (!ObjectUtils.equal(fv.getAlphabet(), dictionary)) {
 			throw new IllegalArgumentException ("Vocabularies do not match.");
+		}
 		int fvsize = fv.numLocations();
 		int fvl = 0;
 		for (int fcl = 0; fcl < features.length; fcl++) {
@@ -384,8 +388,9 @@ public class FeatureConjunction implements Serializable
 		public void add (FeatureConjunction fc)
 		{
 			if (conjunctions.size() > 0
-					&& fc.dictionary != ((FeatureConjunction)conjunctions.get(0)).dictionary)
+					&& !ObjectUtils.equal(fc.dictionary, ((FeatureConjunction)conjunctions.get(0)).dictionary)) {
 				throw new IllegalArgumentException ("Alphabet does not match.");
+			}
 			conjunctions.add (fc);
 		}
 

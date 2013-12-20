@@ -18,6 +18,7 @@ import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;
+import cc.mallet.util.ObjectUtils;
 
 
 /** 
@@ -80,7 +81,7 @@ public class BalancedWinnow extends Classifier implements Serializable
         // Make sure the feature vector's feature dictionary matches
         // what we are expecting from our data pipe (and thus our notion
         // of feature probabilities.
-        assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+        assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
         int fvisize = fv.numLocations();
 
         // Take dot products
