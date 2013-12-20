@@ -7,11 +7,21 @@
 
 package cc.mallet.topics;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Arrays;
-import java.io.*;
 
-import cc.mallet.types.*;
-import cc.mallet.util.ArrayUtils;
+import cc.mallet.types.Alphabet;
+import cc.mallet.types.FeatureSequence;
+import cc.mallet.types.Instance;
+import cc.mallet.types.InstanceList;
+import cc.mallet.util.ObjectUtils;
 import cc.mallet.util.Randoms;
 
 /**
@@ -108,7 +118,7 @@ public class LDA implements Serializable {
 		if (ilist == null) throw new IllegalStateException ("Must already have some documents first.");
 		for (Instance inst : additionalDocuments)
 			ilist.add(inst);
-		assert (ilist.getDataAlphabet() == additionalDocuments.getDataAlphabet());
+		assert ObjectUtils.equal(ilist.getDataAlphabet(), additionalDocuments.getDataAlphabet());
 		assert (additionalDocuments.getDataAlphabet().size() >= numTypes);
 		numTypes = additionalDocuments.getDataAlphabet().size();
 		int numNewDocs = additionalDocuments.size();

@@ -17,6 +17,7 @@ import cc.mallet.pipe.Pipe;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.LabelVector;
+import cc.mallet.util.ObjectUtils;
 
 /** 
  * Classification methods of Winnow2 algorithm.
@@ -64,7 +65,7 @@ public class Winnow extends Classifier{
 		// Make sure the feature vector's feature dictionary matches
 		// what we are expecting from our data pipe (and thus our notion
 		// of feature probabilities.
-		assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+		assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
 		int fvisize = fv.numLocations();
 		
 		// Set the scores by summing wi*xi

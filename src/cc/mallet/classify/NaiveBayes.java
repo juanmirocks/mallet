@@ -8,16 +8,23 @@
 package cc.mallet.classify;
 
 
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 
-import cc.mallet.classify.Classifier;
 import cc.mallet.pipe.Pipe;
-import cc.mallet.types.*;
+import cc.mallet.types.Alphabet;
+import cc.mallet.types.FeatureVector;
+import cc.mallet.types.Instance;
+import cc.mallet.types.InstanceList;
+import cc.mallet.types.LabelVector;
+import cc.mallet.types.Labeling;
+import cc.mallet.types.Multinomial;
 import cc.mallet.types.Multinomial.Logged;
+import cc.mallet.types.RankedFeatureVector;
+import cc.mallet.util.ObjectUtils;
 
 /**
  * A classifier that classifies instances according to the NaiveBayes method.
@@ -147,7 +154,7 @@ public class NaiveBayes extends Classifier implements Serializable
     // what we are expecting from our data pipe (and thus our notion
     // of feature probabilities.
     assert (instancePipe == null
-            || fv.getAlphabet () == instancePipe.getDataAlphabet ());
+            || ObjectUtils.equal(fv.getAlphabet(), instancePipe.getDataAlphabet()));
     int fvisize = fv.numLocations();
 
     prior.addLogProbabilities (scores);

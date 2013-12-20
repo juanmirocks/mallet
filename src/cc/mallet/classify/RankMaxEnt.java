@@ -19,7 +19,6 @@ import java.io.ObjectOutputStream;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.FeatureVectorSequence;
@@ -28,6 +27,7 @@ import cc.mallet.types.InstanceList;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;
+import cc.mallet.util.ObjectUtils;
 
 
 /**
@@ -87,9 +87,8 @@ public class RankMaxEnt extends MaxEnt
 			// Make sure the feature vector's feature dictionary matches
 			// what we are expecting from our data pipe (and thus our notion
 			// of feature probabilities.
-			assert (fv.getAlphabet ()
-							== this.instancePipe.getDataAlphabet ());
-			
+			assert ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet());
+
 			// Include the feature weights according to each label xxx is
 			// this correct ? we only calculate the dot prod of the feature
 			// vector with the "positiveLabel" weights
@@ -116,9 +115,8 @@ public class RankMaxEnt extends MaxEnt
 			// Make sure the feature vector's feature dictionary matches
 			// what we are expecting from our data pipe (and thus our notion
 			// of feature probabilities.
-			assert (fv.getAlphabet ()
-							== this.instancePipe.getDataAlphabet ());
-			
+			assert ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet());
+
 			// Include the feature weights according to each label
 			scores[instanceNumber] = parameters[0*numFeatures + defaultFeatureIndex]
 																 + MatrixOps.rowDotProduct (parameters, numFeatures,

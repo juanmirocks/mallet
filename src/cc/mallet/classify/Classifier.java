@@ -14,22 +14,20 @@
 
 package cc.mallet.classify;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.*;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.AlphabetCarrying;
-import cc.mallet.types.FeatureVector;
+import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.Labeling;
-import cc.mallet.types.FeatureSelection;
+import cc.mallet.util.ObjectUtils;
 
 /**
  * Abstract parent of all Classifiers.
@@ -104,8 +102,9 @@ public abstract class Classifier implements AlphabetCarrying, Serializable
 	public boolean alphabetsMatch (AlphabetCarrying object)
 	{
 		Alphabet[] otherAlphabets = object.getAlphabets();
-		if (otherAlphabets.length == 2 && otherAlphabets[0] == getAlphabet() && otherAlphabets[1] == getLabelAlphabet())
+		if (otherAlphabets.length == 2 && ObjectUtils.equal(otherAlphabets[0], getAlphabet()) && ObjectUtils.equal(otherAlphabets[1], getLabelAlphabet())) {
 			return true;
+		}
 		return false;
 	}
 

@@ -6,14 +6,12 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.types.tests;
 
-import junit.framework.TestCase;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import java.io.IOException;
 import java.io.Serializable;
 
-import cc.mallet.types.Alphabet;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 
@@ -57,7 +55,7 @@ public class TestLabelAlphabet extends TestCase {
     Labelee l = new Labelee (dict, t1);
     Labelee l2 = (Labelee) TestSerializable.cloneViaSerialization (l);
 
-    assertTrue (l.dict == l2.dict);
+    assertEquals (l.dict, l2.dict);
     assertTrue (dict.lookupLabel("TEST1") == l.theLabel);
     assertTrue (dict.lookupLabel("TEST1") == l2.theLabel);
     assertTrue (l.theLabel == l2.theLabel);

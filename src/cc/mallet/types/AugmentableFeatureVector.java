@@ -110,7 +110,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	 *  Adds all indices that are present in some other feature vector
 	 *  with value 1.0.
 	 *  Beware that this may have unintended effects if 
-	 *    <tt>fv.dictionary != this.dictionary</tt>
+	 *    <tt>!fv.dictionary.equals(this.dictionary)</tt>.
 	 */
 	public void add (FeatureVector fv)
 	{

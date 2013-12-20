@@ -17,9 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
-import cc.mallet.classify.Boostable;
-import cc.mallet.classify.Classification;
-import cc.mallet.classify.Classifier;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureVector;
@@ -28,6 +25,7 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 
 
 /**
@@ -65,7 +63,7 @@ public class C45 extends Classifier implements Boostable, Serializable
 	public Classification classify (Instance instance)
 	{
 		FeatureVector fv = (FeatureVector) instance.getData ();
-		assert (instancePipe == null || fv.getAlphabet () == this.instancePipe.getDataAlphabet ());
+		assert (instancePipe == null || ObjectUtils.equal(fv.getAlphabet(), this.instancePipe.getDataAlphabet()));
 		
 		Node leaf = getLeaf(m_root, fv);
 		return new Classification (instance, this, leaf.getGainRatio().getBaseLabelDistribution());

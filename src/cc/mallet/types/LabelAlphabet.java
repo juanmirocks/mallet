@@ -11,11 +11,9 @@
 
 package cc.mallet.types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.io.*;
 
-import cc.mallet.types.Alphabet;
 /**
 		A mapping from arbitrary objects (usually String's) to integers
 		(and corresponding Label objects) and back.
@@ -24,8 +22,8 @@ import cc.mallet.types.Alphabet;
  */
 public class LabelAlphabet extends Alphabet implements Serializable
 {
-	ArrayList labels;
-		
+	private ArrayList labels;
+
 	public LabelAlphabet ()
 	{
 		super();
@@ -58,5 +56,31 @@ public class LabelAlphabet extends Alphabet implements Serializable
 	{
 		return (Label) labels.get(labelIndex);
 	}
-		
+
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) {
+	        return true;
+	    }
+	    if (!super.equals(obj)) {
+	        return false;
+	    }
+	    if (!(obj instanceof LabelAlphabet)) {
+	        return false;
+	    }
+	    LabelAlphabet other = (LabelAlphabet) obj;
+	    if (!this.labels.equals(other.labels)) {
+	        return false;
+	    }
+	    return true;
+	}
+
+	@Override
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = super.hashCode();
+	    result = prime * result + this.labels.hashCode();
+	    return result;
+	}
+
 }

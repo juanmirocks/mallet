@@ -1,6 +1,5 @@
 package cc.mallet.classify;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -18,6 +17,7 @@ import cc.mallet.types.MatrixOps;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
 import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 
 public class MaxEntOptimizableByLabelLikelihood implements Optimizable.ByGradientValue {
 
@@ -108,7 +108,7 @@ public class MaxEntOptimizableByLabelLikelihood implements Optimizable.ByGradien
 			//logger.fine ("Instance "+ii+" labeling="+labeling);
 			FeatureVector fv = (FeatureVector) inst.getData ();
 			Alphabet fdict = fv.getAlphabet();
-			assert (fv.getAlphabet() == fd);
+			assert ObjectUtils.equal(fdict, fd);
 			int li = labeling.getBestIndex();
 			MatrixOps.rowPlusEquals (constraints, numFeatures, li, fv, instanceWeight);
 			// For the default feature, whose weight is 1.0

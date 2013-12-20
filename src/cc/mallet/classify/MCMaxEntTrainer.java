@@ -12,36 +12,27 @@ information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.classify;
 
 
-import java.util.logging.*;
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.logging.Logger;
 
-import cc.mallet.classify.Classifier;
 import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.Optimizer;
-import cc.mallet.optimize.tests.*;
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.ExpGain;
-import cc.mallet.types.FeatureInducer;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
-import cc.mallet.types.GradientGain;
-import cc.mallet.types.InfoGain;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labeling;
 import cc.mallet.types.MatrixOps;
-import cc.mallet.types.RankedFeatureVector;
-import cc.mallet.types.Vector;
 import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
 import cc.mallet.util.Maths;
+import cc.mallet.util.ObjectUtils;
 
 // Does not currently handle instances that are labeled with distributions
 // instead of a single label.
@@ -508,7 +499,7 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 				//logger.fine ("Instance "+ii+" labeling="+labeling);
 				FeatureVector fv = (FeatureVector) inst.getData ();
 				Alphabet fdict = fv.getAlphabet();
-				assert (fv.getAlphabet() == fd);
+				assert ObjectUtils.equal(fdict, fd);
 				int li = labeling.getBestIndex();
 				// The "2*" below is because there is one copy for the p(y|x)and another for the p(x|y).
 				MatrixOps.rowPlusEquals (constraints, numFeatures, li, fv, 2*instanceWeight);
